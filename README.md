@@ -1,4 +1,5 @@
-# IoT-ProjectsWS_21-22
+# IoT-Geenhouse
+
 Repository for group development of IoT services in the course "Vernetzung und IoT" at Karlsruhe University of Applied Sciences (HKA). 
 
 ## Concept of the Course
