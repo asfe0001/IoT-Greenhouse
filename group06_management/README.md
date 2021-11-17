@@ -16,7 +16,9 @@ etc.
 ## Program flowchart
 etc.
 ##  Developers and authors Subproject
- * Name 1
- * Name 2
- * ...
- * Name n
+ * Gion Heugel
+ * Philipp Merz
+ * Marco Goedecke
+ * Manuel Gass
+ * Evelin Spies
+ 
