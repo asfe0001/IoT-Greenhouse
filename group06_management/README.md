@@ -1,7 +1,7 @@
 # IoT-Geenhouse: Subproject Management
 
 ## Goals of the Subproject
-In this subproject we will implement the management for the IoT-Greenhouse. The management will take subscribe to all sensor data and determine, based on data from the knowledge base, when to water the plants, release CO2 or turn on additional lights.
+In this subproject we will implement the management for the IoT-Greenhouse. The management will subscribe to all sensor data and determine, based on data from the knowledge base, when to water the plants, release CO2 or turn on additional lights.
 ## List of Requirements Group06
 etc.
  * Point 1, Milestone 1
