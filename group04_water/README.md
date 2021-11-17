@@ -16,7 +16,7 @@ etc.
 ## Program flowchart
 etc.
 ##  Developers and authors Subproject
- * Name 1
- * Name 2
- * ...
- * Name n
+ * Daniel Lederer
+ * Gabriel Simmann
+ * Leon Volles
+ * Nic Rischette
