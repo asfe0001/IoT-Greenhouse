@@ -16,7 +16,6 @@ etc.
 ## Program flowchart
 etc.
 ##  Developers and authors Subproject
- * Name 1
- * Name 2
- * ...
- * Name n
+ * Jasper Encke
+ * Kevin Seja
+ * Philipp ?
