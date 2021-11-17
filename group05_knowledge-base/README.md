@@ -1,7 +1,23 @@
 # IoT-Geenhouse: Subproject Knowledge-Base
 
 ## Goals of the Subproject
-etc.
+* Which devices are part of the greenhouse system?
+* Which data needs to be communicated?
+Define names and adresses.
+ + Air
+    + temperature
+    + humidity
+    + CO2
+    + pressure
+ + Ground
+    + temperature
+    + humidity
+ + Light
+ + Water
+    + temperature
+    + 
+ + management
+
 ## List of Requirements Group05
 etc.
  * Point 1, Milestone 1
@@ -10,13 +26,12 @@ etc.
  * Point n, Milestone n
  
 ## Overview Hardware System
-etc.
++ Is hardware even required or distributed over all devices?
 ## Preparation for Startup
 etc.
 ## Program flowchart
 etc.
 ##  Developers and authors Subproject
- * Name 1
- * Name 2
- * ...
- * Name n
+ * Yannik
+ * Manuel Fickinger
+ * Robin
