@@ -33,4 +33,4 @@ etc.
 ##  Developers and authors Subproject
  * Jasper Encke
  * Kevin Seja
- * Philipp ?
+ * Philipp Diel
