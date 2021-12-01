@@ -23,5 +23,7 @@ etc.
  *LED RING
  *https://www.reichelt.de/entwicklerboards-neopixel-ring-mit-12-ws2812rgb-leds-debo-led-np12-p235468.html?&trstct=pos_0&nbc=1
  
- *LICHT SENSOR
+ *LIGHT SENSOR
  *https://www.reichelt.de/entwicklerboards-digitaler-lichtsensor-bh1750-debo-bh-1750-p224217.html?&trstct=pos_6&nbc=1
+
+ *Raspberry pi*
