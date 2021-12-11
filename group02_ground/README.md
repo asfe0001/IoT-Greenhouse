@@ -10,13 +10,17 @@ etc.
  * Point n, Milestone n
  
 ## Overview Hardware System
-etc.
+* Raspberry Pi
+* Temperature sensor DS18B20
+* Humidity sensor
+* 
 ## Preparation for Startup
 etc.
+
 ## Program flowchart
 etc.
+
 ##  Developers and authors Subproject
- * Name 1
- * Name 2
- * ...
- * Name n
+ * Lang Maximilian
+ * Reisner Nick
+ * Stein Fabian
