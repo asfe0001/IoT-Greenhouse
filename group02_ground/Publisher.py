@@ -4,7 +4,7 @@ import time
 import json 
 from random import randrange, uniform
 from Temperature import *
-from Humidity import *
+from Moisture import *
 
 """Setup"""
 # Broker
@@ -15,15 +15,15 @@ client.connect(mqttBroker)
 # Temperature sensor
 setupTemperature()
 
-# Humidity sensor
-setupHumidity()
+# Moisture sensor
+setupMoisture()
 
 """Publish loop"""
 try:
     while True:
         # Get sensor values
         Bodentemperatur = getTemperature()
-        Bodenfeuchte = getHumidity()
+        Bodenfeuchte = getMoisture()
        
         print("update") 
         
@@ -31,20 +31,20 @@ try:
         publisher_temperature = {
             "Bodentemperatur": Bodentemperatur
             }
-        publisher_humidity = {
+        publisher_moisture = {
             "Bodenfeuchte": Bodenfeuchte
             }
 
         # Prepare Publisher
-        publisher_json1 = json.dumps(publisher_temperature)
-        publisher_json2 = json.dumps(publisher_humidity) 
+        publisher_temperature = json.dumps(publisher_temperature)
+        publisher_moisture = json.dumps(publisher_moisture) 
     
         # Publish JSON
-        client.publish("IoTGreenhouse/Ground/Temperature",publisher_json1)
-        client.publish("IoTGreenhouse/Ground/Humidity",publisher_json2)
+        client.publish("IoTGreenhouse/Ground/Temperature",publisher_temperature)
+        client.publish("IoTGreenhouse/Ground/Moisture",publisher_moisture)
 
-        #print("Bodentemperatur:",publisher_json1)
-        #print("Bodenfeuchte:",publisher_json2)
+        #print("Bodentemperatur:",publisher_temperature)
+        #print("Bodenfeuchte:",publisher_moisture)
         time.sleep(1)
        
 except KeyboardInterrupt:
