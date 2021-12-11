@@ -13,7 +13,7 @@ etc.
 * Raspberry Pi
 * Temperature sensor DS18B20
 * Humidity sensor
-* 
+
 ## Preparation for Startup
 etc.
 
