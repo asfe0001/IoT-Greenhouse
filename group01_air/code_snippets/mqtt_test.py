@@ -1,3 +1,5 @@
+# ©Marvmellow203 (nicht B====D - - - Kruemelbacke)
+
 # Provide Air Values for IoT-Greenhouse
 # Temperature, Pressure, Humidity, CO2
 
@@ -74,5 +76,4 @@ while (True):
         break
 client.disconnect()
 
-
-
+# ©Marvmellow203 (nicht B====D - - - Kruemelbacke)
