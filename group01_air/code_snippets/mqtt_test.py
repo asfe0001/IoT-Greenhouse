@@ -71,9 +71,10 @@ while (True):
         print("Sent weather message", message_weather)
 
         i = i+1
-        
+
     except KeyboardInterrupt:
         break
 client.disconnect()
+print("Disconnected...")
 
 # ©Marvmellow203 (nicht B====D - - - Kruemelbacke)
