@@ -1,7 +1,8 @@
 # IoT-Geenhouse: Subproject Ground
 
 ## Goals of the Subproject
-etc.
+Measure the moisture and temperature of the soil and publish them.
+
 ## List of Requirements Group02
 
  * Point 1, Milestone 1
@@ -10,13 +11,17 @@ etc.
  * Point n, Milestone n
  
 ## Overview Hardware System
-etc.
+* Raspberry Pi
+* Temperature sensor DS18B20
+* Moisture sensor
+
 ## Preparation for Startup
 etc.
+
 ## Program flowchart
 etc.
+
 ##  Developers and authors Subproject
- * Name 1
- * Name 2
- * ...
- * Name n
+ * Lang Maximilian
+ * Reisner Nick
+ * Stein Fabian

@@ -31,44 +31,47 @@ co2 = 0
 
 
 while (True):
-    time.sleep(1)
-    # Get values from sensor
-    temperature = i
-    pressure = i
-    humidity = i
-    co2 = i
+    try:
+        time.sleep(1)
+        # Get values from sensor
+        temperature = i
+        pressure = i
+        humidity = i
+        co2 = i
 
-    # Build messages to publish
-    message_air = json.dumps({
-        "Temperature" : temperature,
-        "Pressure" : pressure,
-        "Humidity" : humidity,
-        "CO2" : co2
-        })
+        # Build messages to publish
+        message_air = json.dumps({
+            "Temperature" : temperature,
+            "Pressure" : pressure,
+            "Humidity" : humidity,
+            "CO2" : co2
+            })
 
-    server_response_json = requests.get(url).json()
-    # Get values from OpenWeather
-    temperature = round(server_response_json["main"]["temp"]-273.15, 1)
-    pressure = server_response_json["main"]["pressure"]
-    humidity = server_response_json["main"]["humidity"]
+        server_response_json = requests.get(url).json()
+        # Get values from OpenWeather
+        temperature = round(server_response_json["main"]["temp"]-273.15, 1)
+        pressure = server_response_json["main"]["pressure"]
+        humidity = server_response_json["main"]["humidity"]
 
-    # Build messages to publish
-    message_weather = json.dumps({
-        "Temperature" : temperature,
-        "Pressure" : pressure,
-        "Humidity" : humidity
-        })  
+        # Build messages to publish
+        message_weather = json.dumps({
+            "Temperature" : temperature,
+            "Pressure" : pressure,
+            "Humidity" : humidity
+            })  
 
-    
-    
-    client.publish("Greenhouse/Air/Inside", message_air)
-    print("Sent message:"+str(message_air))
+        
+        
+        client.publish("Greenhouse/Air/Inside", message_air)
+        print("Sent message:"+str(message_air))
 
-    client.publish("Greenhouse/Air/Outside", message_weather)
-    print("Sent weather message", message_weather)
+        client.publish("Greenhouse/Air/Outside", message_weather)
+        print("Sent weather message", message_weather)
 
-    i = i+1
-
+        i = i+1
+        
+    except KeyboardInterrupt:
+        break
 client.disconnect()
 
 
