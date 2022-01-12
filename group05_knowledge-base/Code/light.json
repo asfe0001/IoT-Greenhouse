@@ -1,0 +1,6 @@
+{
+    "Plant": "tomato",
+    "Unit":     "Lux",
+    "Min":        500,
+    "Max":       3000
+}

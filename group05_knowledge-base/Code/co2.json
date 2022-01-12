@@ -1,0 +1,6 @@
+{
+    "Plant": "tomato",
+    "Unit":     "ppm",
+    "Min":        100,
+    "Max":        400
+}
