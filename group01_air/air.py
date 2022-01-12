@@ -1,5 +1,3 @@
-# ©Marvmellow203 (nicht B====D - - - Kruemelbacke)
-
 # Provide Air Values for IoT-Greenhouse
 # Temperature, Pressure, Humidity, CO2
 
@@ -8,6 +6,9 @@ import paho.mqtt.client as mqtt
 import json
 import time
 import requests
+from bme68x import BME68X
+import bme68xConstants as cst
+import bsecConstants as bsec
 
 # OpenWeather User Variables
 API_key = "78bc3e43c97af0bbdb72e1150899fb66"
@@ -24,6 +25,28 @@ client = mqtt.Client()
 client.username_pw_set(username, password)
 client.connect(adress, 1883, 60)
 
+# Configure BME688 Sensor
+
+bme = BME68X(cst.BME68X_I2C_ADDR_HIGH, 1)
+bme.set_sample_rate(bsec.BSEC_SAMPLE_RATE_LP)
+
+
+def get_data(sensor):
+    data = {}
+    try:
+        data = sensor.get_bsec_data()
+    except Exception as e:
+        print(e)
+        return None
+    if data == None or data == {}:
+        time.sleep(0.1)
+        return None
+    else:
+        time.sleep(3)
+        return data
+
+
+
 i=0 # dummy value
 
 temperatur = 0
@@ -36,10 +59,13 @@ while (True):
     try:
         time.sleep(1)
         # Get values from sensor
-        temperature = i
-        pressure = i
-        humidity = i
-        co2 = i
+        bsec_data = get_data(bme)
+        while bsec_data == None:
+            bsec_data = get_data(bme)
+        temperature = round(bsec_data['temperature'], 1)
+        pressure = round(bsec_data['raw_pressure']/100, 1)
+        humidity = round(bsec_data['humidity'], 1)
+        co2 = bsec_data['co2_equivalent']
 
         # Build messages to publish
         message_air = json.dumps({
@@ -76,5 +102,3 @@ while (True):
         break
 client.disconnect()
 print("Disconnected...")
-
-# ©Marvmellow203 (nicht B====D - - - Kruemelbacke)
