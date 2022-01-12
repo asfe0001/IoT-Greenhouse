@@ -1,0 +1,6 @@
+{
+    "Plant": "tomato",
+    "Unit":      "°C",
+    "Min":         25,
+    "Max":         50
+}
