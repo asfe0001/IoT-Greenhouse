@@ -1,7 +1,9 @@
 # IoT-Geenhouse: Subproject Light
 
 ## Goals of the Subproject
-etc.
+-Provide Analog brightness readout for IOT-Greenhouse. Values get published on broker.
+-Control a LED via inputs from Broker
+
 ## List of Requirements Group03
 etc.
  * Point 1, Milestone 1
