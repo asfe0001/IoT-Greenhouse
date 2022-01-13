@@ -19,6 +19,13 @@ etc.
 ## Preparation for Startup
 * install **paho client** with ``sudo pip install paho-mqtt``
 * install **adafruit i2C ADC** with ``sudo pip3 install adafruit-circuitpython-ads1x15``
+
+## Get / control values
+* To control LED publish value to brokertopic Greenhouse/Light/LED_Status
+  **1** to turn **on** LED
+  **0** to turn **off** LED
+* Brightness values get published at Greenhouse/Light/Brightness
+* 
 ## Hardware routing
 ![signal routing](https://user-images.githubusercontent.com/94985537/149324416-230a03ea-fdb1-4d14-bd33-b21e2e305ccc.png)
 
