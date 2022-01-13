@@ -22,8 +22,8 @@ etc.
 
 ## Get / control values
 * To control LED publish value to brokertopic Greenhouse/Light/LED_Status
-  **1** to turn **on** LED
-  **0** to turn **off** LED
+  ``**1** to turn **on** LED
+  **0** to turn **off** LED``
 * Brightness values get published at Greenhouse/Light/Brightness
 * 
 ## Hardware routing
