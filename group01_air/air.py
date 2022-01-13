@@ -1,6 +1,5 @@
 # Provide Air Values for IoT-Greenhouse
 # Temperature, Pressure, Humidity, CO2 of Inside and Outside
-# Using the 
 
 
 import paho.mqtt.client as mqtt
