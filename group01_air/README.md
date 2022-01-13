@@ -33,8 +33,8 @@ Provide relevant data about air condition including temperature, pressure, CO2, 
 
   * **bme68x-python-library**
     https://github.com/pi3g/bme68x-python-library
-    Follow the instructions on README-file to install
-    Don't forget the BSEC2.0 library from BOSCH
+    Follow the instructions on README-file to install.
+    Don't forget the BSEC2.0 library from BOSCH.
 
 * Attach breakout board on raspberry
 [![Picture of correct attachement](https://pi3g.com/wp-content/uploads/2021/04/pi3g-bme688-breakout-board-raspberry-pi-2048x1280.jpg)](https://pi3g.com/products/bme688-breakout-board/)
