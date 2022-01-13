@@ -5,7 +5,6 @@
 -Control a LED via inputs from Broker
 
 ## List of Requirements Group03
-etc.
  * Publish random values to broker with Raspberry PI
  * Get analog readout from KY-018 to RPI via i2c Bus
  * Publish analoge readout to broker
