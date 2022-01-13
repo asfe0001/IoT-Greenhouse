@@ -13,7 +13,7 @@ etc.
  
 ## Overview Hardware System
 * Raspberry PI 3
-* KY-053 AD-COnverter
+* KY-053 AD-Converter
 * KY-018 Light Dependat Resistor (LDR)
 
 ## Preparation for Startup
