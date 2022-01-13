@@ -81,7 +81,7 @@ while (True):
 
         # Send sensor data to mqtt broker
         client.publish("Greenhouse/Air/Inside", message_air)
-        print("Sent message:"+str(message_air))
+        print("Sent sensor message:\t"+str(message_air))
 
         ################# Data from outside via weather query #################
 
@@ -102,7 +102,7 @@ while (True):
 
         # Send weather data to mqtt broker
         client.publish("Greenhouse/Air/Outside", message_weather)
-        print("Sent weather message", message_weather)
+        print("Sent weather message\t", message_weather)
 
         # Wat period of time
         time.sleep(3)
