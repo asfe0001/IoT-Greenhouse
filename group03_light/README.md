@@ -17,9 +17,11 @@ etc.
 * KY-018 Light Dependat Resistor (LDR)
 
 ## Preparation for Startup
-* no preparation needed
-## Program flowchart
-etc.
+* install paho client with sudo pip install paho-mqtt
+* install adafruit i2C ADC sudo pip3 install adafruit-circuitpython-ads1x15
+## Hardware routing
+![signal routing](https://user-images.githubusercontent.com/94985537/149324416-230a03ea-fdb1-4d14-bd33-b21e2e305ccc.png)
+
 ##  Developers and authors Subproject
  * Nils Temmesfeld
  * Jakob Mahn
