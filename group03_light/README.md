@@ -6,15 +6,18 @@
 
 ## List of Requirements Group03
 etc.
- * Point 1, Milestone 1
- * Point 2, Milestone 2
- * ...
- * Point n, Milestone n
+ * Publish random values to broker with Raspberry PI
+ * Get analog readout from KY-018 to RPI via i2c Bus
+ * Publish analoge readout to broker
+ * Subscribe topic to control LED
  
 ## Overview Hardware System
-etc.
+* Raspberry PI 3
+* KY-053 AD-COnverter
+* KY-018 Light Dependat Resistor (LDR)
+
 ## Preparation for Startup
-etc.
+* no preparation needed
 ## Program flowchart
 etc.
 ##  Developers and authors Subproject
