@@ -68,7 +68,7 @@ while (True):
         temperature = round(bsec_data['temperature'], 1)
         pressure = round(bsec_data['raw_pressure']/100, 1)
         humidity = round(bsec_data['humidity'], 1)
-        co2 = bsec_data['co2_equivalent']
+        co2 = round(bsec_data['co2_equivalent'], 1)
 
         # Build message to publish
         message_air = json.dumps({
