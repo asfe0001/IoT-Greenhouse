@@ -89,8 +89,8 @@ while (True):
 
         # Extract relevant data from OpenWather
         temperature = round(server_response_json["main"]["temp"]-273.15, 1)
-        pressure = server_response_json["main"]["pressure"]
-        humidity = server_response_json["main"]["humidity"]
+        pressure = round(server_response_json["main"]["pressure"], 1)
+        humidity = round(server_response_json["main"]["humidity"], 1)
 
         # Build message to publish
         message_weather = json.dumps({
