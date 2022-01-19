@@ -12,8 +12,8 @@ class Knowledge(object):
     #   "co2_max": 10,
     #   "co2_min": 0
     # }
-    def __init__(self, bodenfeuchte_max=100, bodenfeuchte_min=0, helligkeit_max=100, helligkeit_min=0, co2_max=100,
-                 co2_min=0):
+    def __init__(self, bodenfeuchte_max=100.0, bodenfeuchte_min=50.0, helligkeit_max=80.0, helligkeit_min=30.0, co2_max=1600.0,
+                 co2_min=600.0):
         self.bodenfeuchte_max = bodenfeuchte_max
         self.bodenfeuchte_min = bodenfeuchte_min
         self.helligkeit_max = helligkeit_max
@@ -37,15 +37,18 @@ class Manager:
         # Dieses Tuple enthält die Namen der Topics und die entsprechenden Event-Handler
         self.topic_and_function_dictionary = {
             "Greenhouse/KnowledgeBase": self.on_knowledgebase,
-            "Greenhouse/Ground/Bodenfeuchte": self.on_bodenfeuchte,
-            "Greenhouse/Licht/Helligkeit": self.on_helligkeit,
+            "Greenhouse/Ground/Moisture": self.on_bodenfeuchte,
+            "Greenhouse/Light/Brightness": self.on_helligkeit,
+            "Greenhouse/Air/Inside": self.on_co2,
+            
         }
 
     def initial_setup(self):
         # Wird bei der Initialiserung ausgeführt oder wenn sich die Knowledge ändert
-        self.set_bodenfeuchte(self.bodenfeuchte)
-        self.set_helligkeit(self.helligkeit)
-        self.set_co2(self.co2)
+        #self.set_bodenfeuchte(self.bodenfeuchte)
+        #self.set_helligkeit(self.helligkeit)
+        #self.set_co2(self.co2)
+        print('dummy')
 
 
     def on_bodenfeuchte(self, client, userdata, msg):
@@ -56,23 +59,38 @@ class Manager:
         # Wenn bodenfeuchte in Nähe von bodenfeuchte_min kommt (120%) --> dann magnetventil an
         # Magnetventil ausschalten, wenn Mittelwert erreicht wird
         self.bodenfeuchte = bodenfeuchte
-        if bodenfeuchte <= 1.2 * self.knowledge.bodenfeuchte_min:
-            client.publish("magnetventil", 1)
-        elif bodenfeuchte >= (self.knowledge.bodenfeuchte_min + self.knowledge.bodenfeuchte_max) / 2:
-            client.publish("magnetventil", 0)
+        print(bodenfeuchte)
+        
+        mybodenfeuchte = int(0 if bodenfeuchte.get('Moisture') is None else bodenfeuchte.get('Moisture'))
+        
+        if mybodenfeuchte <= 1.2 * self.knowledge.bodenfeuchte_min:
+            client.publish("Greenhouse/Management/magnetventil", 1)
+        elif mybodenfeuchte >= (self.knowledge.bodenfeuchte_min + self.knowledge.bodenfeuchte_max) / 2:
+            client.publish("Greenhouse/Management/magnetventil", 0)
 
     def on_helligkeit(self, client, userdata, msg):
         print("on_helligkeit")
+        print(json.loads(str(msg.payload.decode("utf-8"))))
         self.set_helligkeit(json.loads(str(msg.payload.decode("utf-8"))))
 
     def set_helligkeit(self, helligkeit):
         # Wenn helligkeit in Nähe von helligkeit_min kommt (120%) --> dann Lichtquelle an
         # Lichtquelle ausschalten, wenn Mittelwert erreicht wird
+        #print('davor' + str(helligkeit))
         self.helligkeit = helligkeit
-        if helligkeit <= 1.2 * self.knowledge.helligkeit_min:
-            client.publish("lichtquelle", 1)
-        elif helligkeit >= (self.knowledge.helligkeit_min + self.knowledge.helligkeit_max) / 2:
-            client.publish("lichtquelle", 0)
+        #print('danach' + str(helligkeit))
+        print(helligkeit.get('Light-Percentage [%]'))
+        print(self.knowledge.helligkeit_min)
+        
+        myhelligkeit = int(0 if helligkeit.get('Light-Percentage [%]') is None else helligkeit.get('Light-Percentage [%]'))
+        
+        try:
+            if myhelligkeit <= float(1.2 * self.knowledge.helligkeit_min):
+                client.publish("Greenhouse/Management/lichtquelle", 1)
+            elif myhelligkeit >= (self.knowledge.helligkeit_min + self.knowledge.helligkeit_max) / 2:
+                client.publish("Greenhouse/Management/lichtquelle", 0)
+        except:
+            print('Fail')
 
     def on_co2(self, client, userdata, msg):
         print("on_co2")
@@ -82,10 +100,16 @@ class Manager:
         # co2-Wert steigt bei geschlossenem Fenster --> lüften, wenn co2-Wert in Nähe co2_max kommt (80%) erreicht wird
         # Mit Lüften aufhören, wenn Mittelwert erreicht wird
         self.co2 = co2
-        if co2 <= (self.knowledge.co2_min + self.knowledge.co2_max) / 2:
-            client.publish("lüften", 0)
-        elif co2 >= 0.8 * self.knowledge.co2_max:
-            client.publish("lüften", 1)
+        
+        myco2 = int(0 if co2.get('CO2') is None else co2.get('CO2'))
+        print(co2)
+        print(self.knowledge.co2_max)
+        
+        
+        if myco2 <= (self.knowledge.co2_min + self.knowledge.co2_max) / 2:
+            client.publish("Greenhouse/Management/lüften", 0)
+        elif myco2 >= 0.8 * self.knowledge.co2_max:
+            client.publish("Greenhouse/Management/lüften", 1)
 
     def on_knowledgebase(self, client, userdata, msg):
         print('on_knowledgebase')
