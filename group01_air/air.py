@@ -65,10 +65,10 @@ while (True):
             bsec_data = get_data(bme)
 
         # Extract relevant data from sensor
-        temperature = round(bsec_data['temperature'], 1)
-        pressure = round(bsec_data['raw_pressure']/100, 1)
-        humidity = round(bsec_data['humidity'], 1)
-        co2 = round(bsec_data['co2_equivalent'], 1)
+        temperature = int(bsec_data['temperature'])
+        pressure = int(bsec_data['raw_pressure']/100)
+        humidity = int(bsec_data['humidity'])
+        co2 = int(bsec_data['co2_equivalent'])
 
         # Build message to publish
         message_air = json.dumps({
@@ -88,9 +88,9 @@ while (True):
         server_response_json = requests.get(url).json()
 
         # Extract relevant data from OpenWather
-        temperature = round(server_response_json["main"]["temp"]-273.15, 1)
-        pressure = round(server_response_json["main"]["pressure"], 1)
-        humidity = round(server_response_json["main"]["humidity"], 1)
+        temperature = int(server_response_json["main"]["temp"]-273.15)
+        pressure = int(server_response_json["main"]["pressure"])
+        humidity = int(server_response_json["main"]["humidity"])
 
         # Build message to publish
         message_weather = json.dumps({
