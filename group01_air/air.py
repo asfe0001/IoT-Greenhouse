@@ -1,13 +1,31 @@
-# ©Marvmellow203 (nicht B====D - - - Kruemelbacke)
-
 # Provide Air Values for IoT-Greenhouse
-# Temperature, Pressure, Humidity, CO2
+# Temperature, Pressure, Humidity, CO2 of Inside and Outside
 
 
 import paho.mqtt.client as mqtt
 import json
 import time
 import requests
+import bme68xConstants as cst
+import bsecConstants as bsec
+
+from bme68x import BME68X
+
+
+# Function to return all sensor data as dict
+def get_data(sensor):
+    data = {}
+    try:
+        data = sensor.get_bsec_data()
+    except Exception as e:
+        print(e)
+        return None
+    if data == None or data == {}:
+        time.sleep(0.1)
+        return None
+    else:
+        return data
+
 
 # OpenWeather User Variables
 API_key = "78bc3e43c97af0bbdb72e1150899fb66"
@@ -20,28 +38,39 @@ username = "ubuntu"
 password = "ubuntu"
 adress = "cf8da10a-0d29-41a9-9c59-beb2051be054.ka.bw-cloud-instance.org"
 
+# Connect to mqtt broker
 client = mqtt.Client()
 client.username_pw_set(username, password)
 client.connect(adress, 1883, 60)
 
-i=0 # dummy value
+# Configure BME688 Sensor
+bme = BME68X(cst.BME68X_I2C_ADDR_HIGH, 1)
+bme.set_sample_rate(bsec.BSEC_SAMPLE_RATE_LP)
 
+# Declare variables
 temperatur = 0
 pressure = 0
 humidity = 0
 co2 = 0
 
-
+################################## MAIN LOOP ##################################
 while (True):
     try:
-        time.sleep(1)
-        # Get values from sensor
-        temperature = i
-        pressure = i
-        humidity = i
-        co2 = i
+        #################### Data from inside via sensor ######################
 
-        # Build messages to publish
+        # Get data from sensor
+        bsec_data = get_data(bme)
+        while bsec_data == None:
+            # Try as long as no data received from sensor
+            bsec_data = get_data(bme)
+
+        # Extract relevant data from sensor
+        temperature = int(bsec_data['temperature'])
+        pressure = int(bsec_data['raw_pressure']/100)
+        humidity = int(bsec_data['humidity'])
+        co2 = int(bsec_data['co2_equivalent'])
+
+        # Build message to publish
         message_air = json.dumps({
             "Temperature" : temperature,
             "Pressure" : pressure,
@@ -49,32 +78,35 @@ while (True):
             "CO2" : co2
             })
 
-        server_response_json = requests.get(url).json()
-        # Get values from OpenWeather
-        temperature = round(server_response_json["main"]["temp"]-273.15, 1)
-        pressure = server_response_json["main"]["pressure"]
-        humidity = server_response_json["main"]["humidity"]
+        # Send sensor data to mqtt broker
+        client.publish("Greenhouse/Air/Inside", message_air)
+        print("Sent sensor message:\t"+str(message_air))
 
-        # Build messages to publish
+        ################# Data from outside via weather query #################
+
+        # Get data from OpenWeather
+        server_response_json = requests.get(url).json()
+
+        # Extract relevant data from OpenWather
+        temperature = int(server_response_json["main"]["temp"]-273.15)
+        pressure = int(server_response_json["main"]["pressure"])
+        humidity = int(server_response_json["main"]["humidity"])
+
+        # Build message to publish
         message_weather = json.dumps({
             "Temperature" : temperature,
             "Pressure" : pressure,
             "Humidity" : humidity
             })  
 
-        
-        
-        client.publish("Greenhouse/Air/Inside", message_air)
-        print("Sent message:"+str(message_air))
-
+        # Send weather data to mqtt broker
         client.publish("Greenhouse/Air/Outside", message_weather)
-        print("Sent weather message", message_weather)
+        print("Sent weather message\t", message_weather)
 
-        i = i+1
+        # Wat period of time
+        time.sleep(3)
 
     except KeyboardInterrupt:
         break
 client.disconnect()
 print("Disconnected...")
-
-# ©Marvmellow203 (nicht B====D - - - Kruemelbacke)
