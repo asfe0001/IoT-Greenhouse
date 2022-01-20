@@ -1,8 +1,8 @@
 # Ground
 import paho.mqtt.client as mqtt
 import time 
-import json 
-from random import randrange, uniform
+import json
+import math
 from Temperature import *
 from Moisture import *
 
@@ -12,12 +12,6 @@ mqttBroker = "cf8da10a-0d29-41a9-9c59-beb2051be054.ka.bw-cloud-instance.org"
 client = mqtt.Client("Ground")
 client.connect(mqttBroker)
 
-# Temperature sensor
-setupTemperature()
-
-# Moisture sensor
-setupMoisture()
-
 """Publish loop"""
 try:
     while True:
@@ -25,14 +19,18 @@ try:
         Bodentemperatur = getTemperature()
         Bodenfeuchte = getMoisture()
        
-        print("update") 
+        if math.isnan(Bodentemperatur):
+            print("Temperature sensor failure")
+
+        if math.isnan(Bodenfeuchte):
+            print("Moisture sensor failure")
         
         # Update JSON values
         publisher_temperature = {
-            "Bodentemperatur": Bodentemperatur
+            "Temperature": Bodentemperatur
             }
         publisher_moisture = {
-            "Bodenfeuchte": Bodenfeuchte
+            "Moisture": Bodenfeuchte
             }
 
         # Prepare Publisher
@@ -40,11 +38,11 @@ try:
         publisher_moisture = json.dumps(publisher_moisture) 
     
         # Publish JSON
-        client.publish("IoTGreenhouse/Ground/Temperature",publisher_temperature)
-        client.publish("IoTGreenhouse/Ground/Moisture",publisher_moisture)
+        client.publish("Greenhouse/Ground/Temperature", publisher_temperature)
+        client.publish("Greenhouse/Ground/Moisture", publisher_moisture)
 
-        #print("Bodentemperatur:",publisher_temperature)
-        #print("Bodenfeuchte:",publisher_moisture)
+        print("Temperature:", publisher_temperature)
+        print("Moisture:", publisher_moisture)
         time.sleep(1)
        
 except KeyboardInterrupt:
